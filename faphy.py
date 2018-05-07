@@ -32,7 +32,8 @@ def get_weights():
 
     # Eigenvalue
     alpha = A.sum(axis=0)
-    w = alpha / A.sum()
+    A2=A/alpha
+    w = A2.sum(axis=1)/(len(A2[0]))
     # print('\nWeights:\n', w.round(4))
 
     # Consistency ratio calculation
