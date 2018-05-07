@@ -32,10 +32,16 @@ def get_weights():
 
     # Eigenvalue
     alpha = A.sum(axis=0)
+<<<<<<< HEAD
     A2 = A / alpha
     w = A2.sum(axis=1) / (len(A2[0]))
     w = w.round(4)
     # print('\nWeights:\n', w)
+=======
+    A2=A/alpha
+    w = A2.sum(axis=1)/(len(A2[0]))
+    # print('\nWeights:\n', w.round(4))
+>>>>>>> 0389a1278b1020c05398866d956187b2af3afbf7
 
     # Consistency ratio calculation
     maxvalue=w*alpha
@@ -49,5 +55,10 @@ def get_weights():
     # write file
     with open('data/weights', 'w') as f:
         for item in w:
+<<<<<<< HEAD
             f.write(str(item.round(4)) + ' ')
     return w
+=======
+            f.write(str(item) + ' ')
+    return w
+>>>>>>> 0389a1278b1020c05398866d956187b2af3afbf7
