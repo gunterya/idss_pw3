@@ -16,10 +16,12 @@ Implement **An integrated decision support system based on ANN and Fuzzy_AHP for
 - [ann.py](ann.py) : train ANN to trained ANN for prediction.
 - [eval.py](eval.py) : evaluate the model, using sensitivity/specificity, evaluation metrics, ROC and performance plot.
 
-- data
-    - processed_data.csv : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/statlog+(heart)).
-    - weights : attribute's weights computed from Fuzzy_AHP.
-    - ANNmodel.h5 : the ANN model information (including frame and weights).
+data/ :
+  - processed_data.csv : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/statlog+(heart)).
+  - weights : attribute's weights computed from Fuzzy_AHP.
+  - ANNmodel.h5 : the ANN model information (including frame and weights).
+
+image/ : store all images using in README.md
     
 
 ## Result
