@@ -24,7 +24,7 @@ Implement **An integrated decision support system based on ANN and Fuzzy_AHP for
 
 ## Result
 
-![Programming Output](image/output_0507.png)
+![Programming Output](image/output_0507.png | width=100)
 
 ![Cost curve](image/loss_0507.png)
 ![Accuracy curve](image/acc_0507.png)
