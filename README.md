@@ -28,8 +28,8 @@ Programming Output<br>
 <img src="image/output_0507.png" width="75%">
 
 Plot Curve<br>
-<img src="image/loss_0507.png" width="75%">
-<img src="image/acc_0507.png" width="75%">
+<img src="image/loss_0507.png" width="45%">
+<img src="image/acc_0507.png" width="45%">
 
 
 ## Evaluation
