@@ -16,7 +16,7 @@ np.random.seed(seed)
 
 # parameters
 TRAIN_AGAIN = False
-WEIGHT_NOTAGAIN = True
+WEIGHT_AGAIN = False
 DATA_PATH = 'data/processed_data.csv'
 PAIRWISE_PATH = '' # TODO: do it need to change to file and then input?!
 W_PATH = 'data/weights'
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     #############################
     #  Load weights (faphy)     #
     #############################
-    if os.path.isfile(W_PATH) & WEIGHT_NOTAGAIN:
+    if os.path.isfile(W_PATH) & (not WEIGHT_AGAIN):
         print('\nLoading weights...')
         w = np.fromfile('data/weights', dtype=np.float128, sep=' ')
         w = np.reshape(w, len(w))
@@ -60,16 +60,16 @@ if __name__ == '__main__':
     #############################
     #  ANN                      #
     #############################
-    if (not os.path.isfile(MODEL_PATH)) | TRAIN_AGAIN:
-        print('Traing ANN(10-13-2)...')
+    if (not os.path.isfile(MODEL_PATH)) | TRAIN_AGAIN | WEIGHT_AGAIN:
+        print('\nTraing ANN(10-13-2)...')
         model = ANN(X_train, y_train, MODEL_PATH)
     else:
-        print('Loading ANN(10-13-2)...')
+        print('\nLoading ANN(10-13-2)...')
         model = load_model(MODEL_PATH)
 
     # evaluate model
     scores = model.evaluate(X_test, y_test, verbose=0)
-    print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+    print("Test %s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 
     # predict (new input)
     # X = ''
