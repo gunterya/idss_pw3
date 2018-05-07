@@ -15,21 +15,20 @@ Implement **An integrated decision support system based on ANN and Fuzzy_AHP for
 - [faphy.py](faphy.py) : Fuzzy_AHP using pairwise_matrix to get the attribute's weights.
 - [ann.py](ann.py) : train ANN to trained ANN for prediction.
 - [eval.py](eval.py) : evaluate the model, using sensitivity/specificity, evaluation metrics, ROC and performance plot.
-
+<br>
 data/ :
   - processed_data.csv : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/statlog+(heart)).
   - weights : attribute's weights computed from Fuzzy_AHP.
   - ANNmodel.h5 : the ANN model information (including frame and weights).
-
+<br>
 image/ : store all images using in README.md
-    
+<br><br> 
 
 ## Result
 
 Programming Output<br>
 <img src="image/output_0507.png" width="75%">
-
-
+<br><br>
 Plot Curve<br>
 <img src="image/loss_0507.png" width="45%">
 <img src="image/acc_0507.png" width="45%">
