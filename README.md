@@ -26,12 +26,18 @@ image/ : store all images using in README.md
 
 ## Result
 
-Programming Output<br>
-<img src="image/output_0507.png" width="75%">
+- Programming Output<br>
+  <img src="image/output.png" width="75%">
 <br><br>
-Plot Curve<br>
-<img src="image/loss_0507.png" width="45%">
-<img src="image/acc_0507.png" width="45%">
+- Plot Curve<br>
+  <img src="image/loss.png" width="45%">
+  <img src="image/acc.png" width="45%">
 
 
 ## Evaluation
+
+- evaluation metrics
+  <img src="image/confusion_matrix.png" width="45%">
+<br>
+- ROC
+- performance plot
