@@ -36,8 +36,8 @@ image/ : store all images using in README.md
 
 ## Evaluation
 
-- evaluation metrics
-  <img src="image/confusion_matrix.png" width="45%">
-<br>
+- evaluation metrics<br>
+  <img src="image/confusion_matrix.png" width="50%">
+<br><br>
 - ROC
 - performance plot
