@@ -10,17 +10,19 @@ from keras.models import load_model
 from faphy import get_weights
 from preprocessing import preprocessing
 from ann import ANN
+from eval import eval
 
 seed = 2018
 np.random.seed(seed)
 
 # parameters
-TRAIN_AGAIN = False
 WEIGHT_AGAIN = False
+TRAIN_AGAIN = True
 DATA_PATH = 'data/processed_data.csv'
 PAIRWISE_PATH = '' # TODO: do it need to change to file and then input?!
 W_PATH = 'data/weights'
 MODEL_PATH = 'data/ANNmodel.h5'
+OUTPUT_PATH = 'image/'
 
 pred_data = '' # new data for prediction
 # TODO: ADD time consume analysis of each block
@@ -34,9 +36,11 @@ if __name__ == '__main__':
     print('X shape:', X.shape)
     print('Y shape:', y.shape)
 
-    # split train(60%)+validation(20%)=train(80%) /test(20%)
+    # split train(65%)+validation(20%)=train(85%) /test(15%)
     # I split train/validation in ANN model
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=seed)
+    print('Number of training+validation data:', X_train.shape[0])
+    print('Number of testing data:', X_test.shape[0])
 
 
     #############################
@@ -61,17 +65,29 @@ if __name__ == '__main__':
     #  ANN                      #
     #############################
     if (not os.path.isfile(MODEL_PATH)) | TRAIN_AGAIN | WEIGHT_AGAIN:
-        print('\nTraing ANN(10-13-2)...')
-        model = ANN(X_train, y_train, MODEL_PATH)
+        print('\nTraining ANN(10-13-2)...')
+        model = ANN(X_train, y_train, MODEL_PATH, isPlot=OUTPUT_PATH)
     else:
         print('\nLoading ANN(10-13-2)...')
         model = load_model(MODEL_PATH)
 
     # evaluate model
+    train_scores = model.evaluate(X_train, y_train, verbose=0)
+    print("Train %s: %.2f%%" % (model.metrics_names[1], train_scores[1] * 100))
     scores = model.evaluate(X_test, y_test, verbose=0)
     print("Test %s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 
-    # predict (new input)
+
+    #############################
+    #  Evaluation               #
+    #############################
+    print('\nEvaluating...')
+    eval(model, X_test, y_test, OUTPUT_PATH)
+
+
+    #############################
+    #  Prediction (new input)   #
+    #############################
     # X = ''
     # predictions = model.predict(X)
 
