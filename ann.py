@@ -6,12 +6,14 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import EarlyStopping
 
-def ANN(X_train, y_train, model_path, isShow=0):
+def ANN(X_train, y_train, model_path, isPlot=0, isShow=0):
     # create model
     model = Sequential()
     model.add(Dense(10, input_dim=13, activation='sigmoid'))
     model.add(Dense(2, activation='softmax'))
     # compile model
+    # from keras import optimizers
+    # sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy']) # TODO: make sure which optimizer is better here
     # model.summary()
 
@@ -20,10 +22,10 @@ def ANN(X_train, y_train, model_path, isShow=0):
     history = model.fit(X_train, y_train, # TODO: make sure how much batch_size is better here
               epochs=2000,
               verbose=isShow,
-              validation_split= 0.8/5)  # train(60%)+validation(20%)=train(80%) /test(20%), split train/validation here
+              validation_split= 20/85)  # train(65%)+validation(20%)=train(85%) /test(15%), split train/validation here
               # callbacks=[stop_early])
 
-    if isShow:
+    if isPlot!=0:
         # print(history.history.keys()) # list all data in history
         # summarize history for accuracy
         plt.plot(history.history['acc'])
@@ -32,7 +34,9 @@ def ANN(X_train, y_train, model_path, isShow=0):
         plt.ylabel('accuracy')
         plt.xlabel('epoch')
         plt.legend(['train', 'valid'], loc='upper left')
-        plt.show()
+        plt.savefig(isPlot +'acc.png')
+        # plt.show()
+        plt.close()
         # summarize history for loss
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
@@ -40,7 +44,9 @@ def ANN(X_train, y_train, model_path, isShow=0):
         plt.ylabel('loss')
         plt.xlabel('epoch')
         plt.legend(['train', 'valid'], loc='upper left')
-        plt.show()
+        plt.savefig(isPlot + 'loss.png')
+        # plt.show()
+        plt.close()
 
     # save model
     model.save(model_path)
