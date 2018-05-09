@@ -12,7 +12,7 @@ from preprocessing import preprocessing
 from ann import ANN
 from eval import eval
 
-seed = 2018
+seed = 1
 np.random.seed(seed)
 
 # parameters
