@@ -20,9 +20,10 @@ def ANN(X_train, y_train, model_path, isPlot=0, isShow=0):
     # fit model
     stop_early = EarlyStopping(monitor='val_loss', patience=20, verbose=0, mode='auto')
     history = model.fit(X_train, y_train, # TODO: make sure how much batch_size is better here
-              epochs=2000,
-              verbose=isShow,
-              validation_split= 20/85)  # train(65%)+validation(20%)=train(85%) /test(15%), split train/validation here
+              batch_size = 50,
+              epochs = 2000,
+              verbose = isShow,
+              validation_split = 20/85)  # train(65%)+validation(20%)=train(85%) /test(15%), split train/validation here
               # callbacks=[stop_early])
 
     if isPlot!=0:
