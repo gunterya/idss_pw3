@@ -6,6 +6,7 @@ Implement **An integrated decision support system based on ANN and Fuzzy_AHP for
 
 Reference: O.W. Samuel, G.M. Asogbon, A.K. Sangaiah, P. Fang, G. Li (2017) - An integrated decision support system based on ANN and Fuzzy_AHP for heart failure risK prediction. Expert Syst. Appl. 68, 163-172.
 
+
 ## Intro
 - [requirement.txt](requirement.txt) : list which packages used in this project.
 
@@ -25,10 +26,6 @@ data/ :
 image/ : store all images using in README.md
 <br><br> 
 
-
-## Infrastructure
-
-
 ## Result
 
 - Programming Output<br>
@@ -41,19 +38,19 @@ image/ : store all images using in README.md
 
 ## Evaluation
 
-(left: hybrid method, right: conventional ANN method)
+(left: hybrid method, right: conventional ANN method) 
 <br><br>
 - evaluation metrics<br>
-  <img src="image/confusion_matrix.png" width="50%">
-  <img src="image/confusion_matrix_ann.png" width="50%">
+  <img src="image/confusion_matrix.png" width="40%">
+  <img src="image/confusion_matrix_ann.png" width="40%">
 <br>
 - ROC
-  <img src="image/roc_curve.png" width="50%">
-  <img src="image/roc_curve_ann.png" width="50%">
+  <img src="image/roc_curve.png" width="40%">
+  <img src="image/roc_curve_ann.png" width="40%">
 <br>
 - performance plot
-  <img src="image/loss.png" width="50%">
-  <img src="image/loss_ann.png" width="50%">
+  <img src="image/loss.png" width="40%">
+  <img src="image/loss_ann.png" width="40%">
 
 
 ## Comparison
@@ -76,6 +73,7 @@ Test accuracy... **82.22%** (train: 85.71%)<br>
 <br>
 - without weights without X normalization : 73.33%% (train: 87.30%)
 - without X normalization : 80.00% (train: 86.11%)
+- without weights : 84.44% (train: 85.71%)
 - without weights : 84.44% (train: 85.71%)
 
 - ANN = 13-10-1 : 82.22% (train: 84.92%)
