@@ -50,7 +50,9 @@ image/ : store all images using in README.md
 
 - performance plot<br>
   <img src="image/loss.png" width="45%">
-  <img src="image/loss_ann.png" width="45%">
+  <img src="image/loss_ann.png" width="45%"><br>
+  
+  
             | hybrid method | conventional ANN method
   :----------:|---------------:|---------------------------:
   train acc |   84.13%      |  85.32%
