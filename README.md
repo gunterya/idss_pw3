@@ -2,8 +2,6 @@
 
 Group 3
 
-Implement **An integrated decision support system based on ANN and Fuzzy_AHP for heart failure risk prediction**.
-
 Reference: O.W. Samuel, G.M. Asogbon, A.K. Sangaiah, P. Fang, G. Li (2017) - An integrated decision support system based on ANN and Fuzzy_AHP for heart failure risK prediction. Expert Syst. Appl. 68, 163-172.
 
 
@@ -25,6 +23,10 @@ data/ :
 
 image/ : store all images using in README.md
 <br><br> 
+
+
+## Infrastructure
+
 
 ## Result
 
@@ -85,7 +87,6 @@ Test accuracy... **82.22%** (train: 85.71%)<br>
 <br>
 - without weights without X normalization : 73.33%% (train: 87.30%)
 - without X normalization : 80.00% (train: 86.11%)
-- without weights : 84.44% (train: 85.71%)
 - without weights : 84.44% (train: 85.71%)
 
 - ANN = 13-10-1 : 82.22% (train: 84.92%)
