@@ -56,11 +56,11 @@ image/ : store all images using in README.md
     |:----------:|---------------:|-------------------------:|
     | Train Accuracy |   84.13%      |  85.32%                    |
     | Test Accuracy  |   95.56%      |  91.11%                    |
-    |Sensitivity |  100%       |  91.30%                     |
+    |Sensitivity |  100.00%       |  91.30%                     |
     |Specificity |  90.91%     |  90.91%                     |
     | FP rate   |  9.09%        |  9.09%                     |
-    | FN rate   |  0.00%        |  8.7%                      |
-    | Recall    |  100%         |  91.30%                    |
+    | FN rate   |  0.00%        |  8.70%                      |
+    | Recall    |  100.00%         |  91.30%                    |
     | Precision |  92.00%       |  91.30%                    |
     | F1        |  95.83%       |  91.30%                    |
 
