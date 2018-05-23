@@ -41,16 +41,16 @@ image/ : store all images using in README.md
 (left: hybrid method, right: conventional ANN method) 
 
 - evaluation metrics<br>
-  <img src="image/confusion_matrix.png" width="50%">
-  <img src="image/confusion_matrix_ann.png" width="50%">
+  <img src="image/confusion_matrix.png" width="45%">
+  <img src="image/confusion_matrix_ann.png" width="45%">
 
 - ROC<br>
-  <img src="image/roc_curve.png" width="50%">
-  <img src="image/roc_curve_ann.png" width="50%">
+  <img src="image/roc_curve.png" width="45%">
+  <img src="image/roc_curve_ann.png" width="45%">
 
 - performance plot<br>
-  <img src="image/loss.png" width="50%">
-  <img src="image/loss_ann.png" width="50%">
+  <img src="image/loss.png" width="45%">
+  <img src="image/loss_ann.png" width="45%">
 
 
 ## Comparison
