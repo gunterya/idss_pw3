@@ -98,5 +98,5 @@ seed = 1, batch_size = 50, iteration=2000,<br>
     - [ ] MICE
 - [ ] User Interface
 - [ ] Pack project to .exe
-- [ ] Word
+- [ ] [Word](https://docs.google.com/document/d/1eVly1WEBN5DUt3R2okgRJKMU7RMSDm8R6JkDb2FgmsM/edit)
 - [ ] Slides
