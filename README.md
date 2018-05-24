@@ -72,32 +72,21 @@ image/ : store all images using in README.md
 
 seed = 1, batch_size = 50, iteration=2000,<br>
 
-| X(attribute)   |  missing data | attribute  |  fix                |  ANN      |  Result                 |
-| scale          |               | weight     |  attribute w        |           |  test acc(train acc)    |
-|:--------------:|:-------------:|:----------:|:-------------------:|-----------|------------------------:|
-| min-max        |  replace_mean |  √         |  √                  | 13-10-2   |   84.78% (85.60%)       |
-| normalization  |  replace_mean |  √         |  √                  | 13-10-2   |   86.96% (85.60%)       |
-| min-max        |  replace_med  |  √         |  √                  | 13-10-2   |   84.78% (85.21%)       |
-| normalization  |  replace_med  |  √         |  √                  | 13-10-2   |   86.96% (85.60%)       |
-| min-max        |  knn-1        |  √         |  √                  | 13-10-2   |   86.96% (84.44%)       |
-| min-max        |  knn-3        |  √         |  √                  | 13-10-2   |   86.96% (84.44%)       |
-| normalization  |  knn-1        |  √         |  √                  | 13-10-2   |   86.96% (85.21%)       |
-| normalization  |  knn-3        |  √         |  √                  | 13-10-2   |   86.96% (85.21%)       |
-| min-max        |  x            |  √         |  √                  | 13-10-2   |   **95.56%** (84.13%)   |
-| normalization  |  x            |  √         |  √                  | 13-10-2   |   93.33% (84.52%)       |
-| x              |  x            |  √         |  √                  | 13-10-2   |   91.11% (83.73%)       |
-| min-max        |  x            |  x         |  √                  | 13-10-2   |   91.11% (85.32%)       |
-| min-max        |  √            |  √         |  √                  | 13-10-1   |   93.33% (83.73%)       |
-
-
-
-| normalization  |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
-| min-max        |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
-| normalization  |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
-| min-max        |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
-| normalization  |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
-| min-max        |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
-| normalization  |  x            |  √         |  13-10-2 |  95.56% (84.13%)        |
+| X(attribute) scale   |  missing data  | attribute weight  |  fix attribute w    |  ANN      |  test acc(train acc)  |
+|:--------------------:|:--------------:|:-----------------:|:-------------------:|-----------|----------------------:|
+| min-max              |  replace_mean  |  √               |  √                   | 13-10-2   |   84.78% (85.60%)     |
+| normalization        |  replace_mean  |  √               |  √                   | 13-10-2   |   86.96% (85.60%)     |
+| min-max              |  replace_med   |  √               |  √                   | 13-10-2   |   84.78% (85.21%)     |
+| normalization        |  replace_med   |  √               |  √                   | 13-10-2   |   86.96% (85.60%)     |
+| min-max              |  knn-1         |  √               |  √                   | 13-10-2   |   86.96% (84.44%)     |
+| min-max              |  knn-3         |  √               |  √                   | 13-10-2   |   86.96% (84.44%)     |
+| normalization        |  knn-1         |  √               |  √                   | 13-10-2   |   86.96% (85.21%)     |
+| normalization        |  knn-3         |  √               |  √                   | 13-10-2   |   86.96% (85.21%)     |
+| min-max              |  x             |  √               |  √                   | 13-10-2   |   **95.56%** (84.13%) |
+| normalization        |  x             |  √               |  √                   | 13-10-2   |   93.33% (84.52%)     |
+| x                    |  x             |  √               |  √                   | 13-10-2   |   91.11% (83.73%)     |
+| min-max              |  x             |  x               |  √                   | 13-10-2   |   91.11% (85.32%)     |
+| min-max              |  √             |  √               |  √                   | 13-10-1   |   93.33% (83.73%)     |
 
 
 seed = 1, batch_size = 50, iteration=2000,<br>
