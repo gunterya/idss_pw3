@@ -71,7 +71,9 @@ image/ : store all images using in README.md
 
 
 seed = 1, batch_size = 50, iteration=2000,<br>
-| X(attribute)  scale  |  missing data  | attribute weight |  fix attribute w              |  ANN      |  test acc(train acc)       |
+
+| X(attribute)   |  missing data | attribute  |  fix                |  ANN      |  Result                 |
+| scale          |               | weight     |  attribute w        |           |  test acc(train acc)    |
 |:--------------:|:-------------:|:----------:|:-------------------:|-----------|------------------------:|
 | min-max        |  replace_mean |  √         |  √                  | 13-10-2   |   84.78% (85.60%)       |
 | normalization  |  replace_mean |  √         |  √                  | 13-10-2   |   86.96% (85.60%)       |
