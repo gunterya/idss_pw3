@@ -91,12 +91,12 @@ seed = 1, batch_size = 50, iteration=2000,<br>
 ## TO-DO List
 
 - [ ] No-fixed attribute weight
+- [x] missing data treatment
 - [x] Evaluation
-- [x] Integrate 'missing data treatmeat'
+- [x] Integrate 'missing data treatment'
     - [x] knn
     - [ ] MICE
-    - [ ] MIMMI
 - [ ] User Interface
-- [ ] Package project
+- [ ] Pack project to .exe
 - [ ] Word
 - [ ] Slides
