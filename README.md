@@ -69,7 +69,6 @@ image/ : store all images using in README.md
 
 ## Comparison
 
-
 seed = 1, batch_size = 50, iteration=2000,<br>
 
 | X(attribute) scale   |  missing data  | attribute weight  |  fix attribute w    |  ANN      |  test acc(train acc)  |
@@ -89,26 +88,15 @@ seed = 1, batch_size = 50, iteration=2000,<br>
 | min-max              |  √             |  √               |  √                   | 13-10-1   |   93.33% (83.73%)     |
 
 
-seed = 1, batch_size = 50, iteration=2000,<br>
-Using X normalization and attribute weight,<br>
-ANN = 13-10-2<br>
-Test accuracy... **95.56%** (train: 84.13%)<br>
-<br>
-- without weights without X normalization : 77.78%% (train: 80.95%)
-- without X normalization : 91.11% (train: 83.73%)
-- without weights : 91.11% (train: 85.32%)
+## TO-DO List
 
-- ANN = 13-10-1 : 93.33% (train: 83.73%)
-- using kfold(=5) : 93.33% (train: 84.52%)
----
-seed = 2, batch_size = 50, iteration=2000,<br>
-Using X normalization and attribute weight,<br> 
-ANN = 13-10-2<br>
-Test accuracy... **82.22%** (train: 85.71%)<br>
-<br>
-- without weights without X normalization : 73.33%% (train: 87.30%)
-- without X normalization : 80.00% (train: 86.11%)
-- without weights : 84.44% (train: 85.71%)
-
-- ANN = 13-10-1 : 82.22% (train: 84.92%)
-- using kfold(=5) : 84.44% (train: 84.92%)
+- [ ] No-fixed attribute weight
+- [x] Evaluation
+- [x] Integrate 'missing data treatmeat'
+    - [x] knn
+    - [ ] MICE
+    - [ ] MIMMI
+- [ ] User Interface
+- [ ] Package project
+- [ ] Word
+- [ ] Slides
