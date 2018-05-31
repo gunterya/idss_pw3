@@ -12,13 +12,13 @@ from preprocessing import preprocessing
 from ann import ANN
 from eval import eval
 
-seed = 1
+seed = 2
 np.random.seed(seed)
 
 # parameters
 WEIGHT_AGAIN = False
 TRAIN_AGAIN = True
-DATA_PATH = 'data/processed_data.csv'
+DATA_PATH = 'data/heart-c.arff'
 PAIRWISE_PATH = '' # TODO: do it need to change to file and then input?!
 W_PATH = 'data/weights'
 MODEL_PATH = 'data/ANNmodel.h5'
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     #############################
     #  Load data                #
     #############################
-    X, y = preprocessing(DATA_PATH)
+    X, y = preprocessing(DATA_PATH, '', 'min_max')
     print('X shape:', X.shape)
     print('Y shape:', y.shape)
 

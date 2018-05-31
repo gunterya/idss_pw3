@@ -15,9 +15,14 @@ class App():
     def __init__(self):
         self.df = (pd.read_csv('/Users/isabellepolizzi/Desktop/UPC/IDSS/PW3/idss_pw3/data/processed_cleveland_data.csv').replace('?',0))
         self.data = []
+        
+        self.window=Tk()
+        self.p1=PanedWindow()
+        self.p2=PanedWindow(self.p1, orient=VERTICAL)
+        self.patient_list=Listbox(self.p1)
     
     """----------------------------------------------------------------------------
-    LOAD DATA FROM PATIENT (TRIGGERED BY LISTBOX ELEMENT)
+    LOAD DATA FROM PATIENT (TRIGGERED BY LISTBOX ELEMENT CLICK)
     """
     def loadData(self,event):
         s = (self.df.iloc[[event.widget.curselection()[0]]]).values[0]
@@ -179,36 +184,48 @@ class App():
             desc=""
         data.append(["Diagnosis of heart disease", s[12], desc])
         
+        
         self.data=data
+        
+        self.p2.grid_forget()
+        
+        Label(self.p2, text="Characteristic", font=("Helvetica", 18)).grid(sticky = W, row=1,column=0)
+        Label(self.p2, text="Value", font=("Helvetica", 18)).grid(sticky = W, row=1,column=1)
+        Label(self.p2, text="Description", font=("Helvetica", 18)).grid(sticky = W, row=1,column=2)
+        
+        for r in range(len(self.data)):
+            Label(self.p2, text=self.data[r][0]).grid(sticky = W, row=r+2,column=0)
+            Label(self.p2, text=self.data[r][1]).grid(sticky = W, row=r+2,column=1)
+            Label(self.p2, text=self.data[r][2]).grid(sticky = W, row=r+2,column=2)
+        
+        #print(self.data)
         
     
     """----------------------------------------------------------------------------
-    LOAD WINDOW WITH PANELS
+    SET WINDOW WITH PANELS
     """
     def launchApp(self):
-        print(self.data)
-        window=Tk()
-        window.geometry("800x500")
-        p1 = PanedWindow()
-        p1.pack(fill=BOTH, expand=1)
+        #window=Tk()
+        self.window.geometry("800x500")
+        #p1 = PanedWindow()
+        self.p1.pack(fill=BOTH, expand=1)
     
-        patient_list=Listbox(p1)
+        #patient_list=Listbox(p1)
         for i in range (len(self.df)):
-            patient_list.insert(i, "Patient "+str(i))
-            patient_list.bind("<<ListboxSelect>>", self.loadData)
+            self.patient_list.insert(i, "Patient "+str(i))
+            self.patient_list.bind("<<ListboxSelect>>", self.loadData)
     
-        p1.add(patient_list)
+        self.p1.add(self.patient_list)
     
-        p2 = PanedWindow(p1, orient=VERTICAL)
-        p1.add(p2)
+        #p2 = PanedWindow(p1, orient=VERTICAL)
+        self.p1.add(self.p2)
     
-        p2.add(Label(p2, text="Data Description"))
-        p2.add(Label(p2, text="bottom pane"))
+        Label(self.p2, text="Data Description", font=("Helvetica", 24)).grid(sticky = W, row=0,column=0)
         
-        window.mainloop()
+        self.window.mainloop()
     
 """----------------------------------------------------------------------------
-CREATE THE APP
+CREATE AND LAUNCH THE APP
 """
 app = App()
 app.launchApp()
