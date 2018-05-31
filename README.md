@@ -31,11 +31,11 @@ results/ : store all images using in README.md
 ## Result
 (BEST ONE: without missing data treatment, min_max scale X, with attribute weights)
 
-- [Programming Output](results/min_max-x-1/out.txt)
+- [Programming Output](results/x-min_max-1/out.txt)
 <br><br>
 - Plot Curve<br>
-  <img src="results/min_max-x-1/loss.png" width="45%">
-  <img src="results/min_max-x-1/acc.png" width="45%">
+  <img src="results/x-min_max-1/loss.png" width="45%">
+  <img src="results/x-min_max-1/acc.png" width="45%">
   
   
 ## Evaluation
@@ -43,18 +43,18 @@ results/ : store all images using in README.md
 (left: hybrid method, right: conventional ANN method)
 
 - evaluation metrics<br>
-  <img src="results/min_max-x-1/confusion_matrix.png" width="45%">
-  <img src="results/min_max-x-0/confusion_matrix.png" width="45%">
+  <img src="results/x-min_max-1/confusion_matrix.png" width="45%">
+  <img src="results/x-min_max-0/confusion_matrix.png" width="45%">
 
 - ROC<br>
-  <img src="results/min_max-x-1/roc_curve.png" width="45%">
-  <img src="results/min_max-x-0/roc_curve.png" width="45%">
+  <img src="results/x-min_max-1/roc_curve.png" width="45%">
+  <img src="results/x-min_max-0/roc_curve.png" width="45%">
 
 - performance plot<br>
-  <img src="results/min_max-x-1/loss.png" width="45%">
-  <img src="results/min_max-x-0/loss.png" width="45%"><br>
+  <img src="results/x-min_max-1/loss.png" width="45%">
+  <img src="results/x-min_max-0/loss.png" width="45%"><br>
 
-    |            | [hybrid method](results/min_max-x-1/out.txt)  | [conventional ANN method](results/min_max-x-0/out.txt)  |
+    |            | [hybrid method](results/x-min_max-1/out.txt)  | [conventional ANN method](results/x-min_max-0/out.txt)  |
     |:----------:|---------------:|-------------------------:|
     | Train Accuracy |   84.13%      |  85.32%                    |
     | Test Accuracy  |   95.56%      |  91.11%                    |
