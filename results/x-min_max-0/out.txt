@@ -1,0 +1,22 @@
+
+Treating missing data... 6 missing values
+imputation method: x
+scale method: min_max
+
+X shape: (297, 13)
+Y shape: (297, 2)
+Number of training+validation data: 252
+Number of testing data: 45
+
+Training ANN(10-13-2)...
+Train acc: 85.32%
+Test acc: 91.11%
+
+Evaluating...
+Sensitivity: 91.30%
+Specificity: 90.91%
+False positive rate: 9.09%
+False negative rate: 8.70%
+Recall: 91.30%
+Precision: 91.30%
+F1: 91.30%
