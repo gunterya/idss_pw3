@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 
 
+
 class App():
 
     
@@ -19,6 +20,7 @@ class App():
         self.window=Tk()
         self.p1=PanedWindow()
         self.p2=PanedWindow(self.p1, orient=VERTICAL)
+        self.frame=Frame(self.p2, relief=GROOVE)
         self.patient_list=Listbox(self.p1)
     
     """----------------------------------------------------------------------------
@@ -187,40 +189,37 @@ class App():
         
         self.data=data
         
-        self.p2.grid_forget()
+        list = self.frame.grid_slaves()
+        for l in list:
+            l.destroy()
         
-        Label(self.p2, text="Characteristic", font=("Helvetica", 18)).grid(sticky = W, row=1,column=0)
-        Label(self.p2, text="Value", font=("Helvetica", 18)).grid(sticky = W, row=1,column=1)
-        Label(self.p2, text="Description", font=("Helvetica", 18)).grid(sticky = W, row=1,column=2)
+        Label(self.frame, text="Characteristic", font=("Helvetica", 18)).grid(sticky = W, row=1,column=0)
+        Label(self.frame, text="Value", font=("Helvetica", 18)).grid(sticky = W, row=1,column=1)
+        Label(self.frame, text="Description", font=("Helvetica", 18)).grid(sticky = W, row=1,column=2)
         
         for r in range(len(self.data)):
-            Label(self.p2, text=self.data[r][0]).grid(sticky = W, row=r+2,column=0)
-            Label(self.p2, text=self.data[r][1]).grid(sticky = W, row=r+2,column=1)
-            Label(self.p2, text=self.data[r][2]).grid(sticky = W, row=r+2,column=2)
-        
-        #print(self.data)
+            Label(self.frame, text=self.data[r][0]).grid(sticky = W, row=r+2,column=0)
+            Label(self.frame, text=self.data[r][1]).grid(sticky = W, row=r+2,column=1)
+            Label(self.frame, text=self.data[r][2]).grid(sticky = W, row=r+2,column=2)
         
     
     """----------------------------------------------------------------------------
     SET WINDOW WITH PANELS
     """
     def launchApp(self):
-        #window=Tk()
         self.window.geometry("800x500")
-        #p1 = PanedWindow()
         self.p1.pack(fill=BOTH, expand=1)
     
-        #patient_list=Listbox(p1)
         for i in range (len(self.df)):
             self.patient_list.insert(i, "Patient "+str(i))
             self.patient_list.bind("<<ListboxSelect>>", self.loadData)
     
         self.p1.add(self.patient_list)
-    
-        #p2 = PanedWindow(p1, orient=VERTICAL)
         self.p1.add(self.p2)
-    
+        self.p2.add(self.frame)
+        
         Label(self.p2, text="Data Description", font=("Helvetica", 24)).grid(sticky = W, row=0,column=0)
+        
         
         self.window.mainloop()
     
