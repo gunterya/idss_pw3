@@ -1,4 +1,3 @@
-from scipy.io.arff import loadarff
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
@@ -7,30 +6,35 @@ from keras.utils import np_utils
 le = LabelEncoder()
 
 def preprocessing(data_path, imp_method, scale_method):
-    # read file
-    data, meta = loadarff(data_path)
-    data = pd.DataFrame(data)
-    data = data.replace(b'?', np.nan)
-    # print(data.isnull().any())
+    # # read file(.arff) (read .arff, need to transfer 'byte' to 'float', got the 'float' value didn't match paper)
+    # from scipy.io.arff import loadarff
+    # d, meta = loadarff(data_path)
+    # d = pd.DataFrame(d)
+    # d = d.replace(b'?', np.nan)
+    # # print(d.isnull().any())
 
-    # missing data treatment
-    inds = np.asarray(data.isnull()).nonzero()
-    # print(data.iloc[inds[0]])
-    print('Treating mising data... ' + str(len(data.iloc[inds[0]])) + ' missing values')
-    if imp_method == '':
-        print('imputation method:', 'none')
-    else:
-        print('imputation method:', imp_method)
-    print('scale method: %s\n' % scale_method)
-    data_new = imputation_scale(data, imp_method, scale_method)
+
+    # read file(.csv)
+    d = np.genfromtxt(data_path, delimiter=',')
+    d[:, 13][d[:, 13] > 0] = 1 # label(Y) be 0 or 1
+    d = pd.DataFrame(d)
+    d.columns = ["age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal", "num"]
+    # print(d)
+
+    # missing data
+    inds = np.asarray(d.isnull()).nonzero()
+    print('\nTreating missing data... ' + str(len(d.iloc[inds[0]])) + ' missing values')
+    # print(d.iloc[inds[0]])
+    print('imputation method:', imp_method)
+    print('scale method: %s' % scale_method)
+    d_new = imputation_scale(d, imp_method, scale_method)
 
     # split X, Y
-    d = np.asarray(data_new)
+    d = np.asarray(d_new)
     X = d[:, 0:13].astype(float)
     Y = d[:, 13]
 
     # Y to be 2-class
-    # le.fit(Y)
     encoder_Y = le.fit_transform(Y)
     Y = np_utils.to_categorical(encoder_Y)  # shape: (:, 2)
 
@@ -41,25 +45,24 @@ def imputation_scale(data, imp_method, scale_method):
     cols = data.columns
     inds = np.asarray(data.isnull()).nonzero()
     var_name = cols[np.unique(inds[1])]
-    data = pd.concat([data.drop(inds[0], axis=0), data.iloc[inds[0]]]).reset_index(drop=True)
+    data = pd.concat([data.drop(inds[0], axis=0), data.iloc[inds[0]]]).reset_index(drop=True) # rearrange NAN rows to the bottom
     inds = np.asarray(data.isnull()).nonzero()
 
     X1 = data[cols.drop(var_name)]
-    nom1 = [i for i in X1.columns if type(X1[i][0]) == bytes]
-    num1 = [i for i in X1.columns if type(X1[i][0]) == np.float64]
-    X1 = pd.concat([X1[nom1].apply(le.fit_transform), X1[num1]], axis=1)
+    # nom1 = [i for i in X1.columns if type(X1[i][0]) == bytes]
+    # num1 = [i for i in X1.columns if type(X1[i][0]) == np.float64]
+    # X1 = pd.concat([X1[nom1].apply(le.fit_transform), X1[num1]], axis=1)
     if scale_method == 'min_max': X1 = min_max_scale(X1)
     if scale_method == 'normalise': X1 = normalisation(X1)
 
     X2 = data[var_name]
     X3 = data[var_name].drop(inds[0], axis=0)
-    nom2 = [i for i in X2.columns if type(X2[i][0]) == bytes]
-    num2 = [i for i in X2.columns if type(X2[i][0]) == np.float64]
-    X3 = pd.concat([X3[nom2].apply(le.fit_transform), X3[num2]], axis=1)
-
+    # nom2 = [i for i in X2.columns if type(X2[i][0]) == bytes]
+    # num2 = [i for i in X2.columns if type(X2[i][0]) == np.float64]
+    # X3 = pd.concat([X3[nom2].apply(le.fit_transform), X3[num2]], axis=1)
     data = pd.concat([X1, X3], axis=1)
-    #     for i in var_name:
-    if imp_method == '':
+
+    if imp_method == 'x':
         data = data.drop(inds[0], axis=0)
     if imp_method == 'replace_mean':
         data = data.fillna(X3.mean())
@@ -87,7 +90,6 @@ def imputation_scale(data, imp_method, scale_method):
 
     data = data[cols]
     return data
-
 
 def min_max_scale(data):
     X = data[data.columns.drop('num')]
@@ -186,3 +188,8 @@ class MiceImputer:
 
     def fit_transform(self, X):
         return self.fit(X).transform(X)
+
+
+if __name__ == '__main__':
+    x, y = preprocessing('data/processed_data.csv', 'MICE', '')
+    print(x[-3], y[-4])

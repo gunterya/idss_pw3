@@ -4,7 +4,7 @@ def get_weights():
     # random consistency index (RI)
     RI = [0, 0, 0.58, 0.90, 1.12, 1.24, 1.32, 1.41, 1.45, 1.49, 1.51, 1.48, 1.56, 1.57, 1.59]
 
-    # read pairwise matrix # TODO: do it need to change to file and then input?!
+    # read pairwise matrix # TODO: write as file and read it?
     c = np.array([[1, 6, 1 / 4, 2, 3, 3, 4, 1 / 4, 2, 1 / 2, 5, 1, 1 / 4],
                   [0, 1, 1 / 9, 1 / 5, 1 / 4, 1 / 4, 1 / 3, 1 / 9, 1 / 5, 1 / 7, 1 / 2, 1 / 6, 1 / 9],
                   [0, 0, 1, 5, 6, 6, 7, 2, 5, 3, 8, 4, 2],

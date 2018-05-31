@@ -11,17 +11,16 @@ Reference: O.W. Samuel, G.M. Asogbon, A.K. Sangaiah, P. Fang, G. Li (2017) - An 
 - [setup.py](setup.py) : for packing up all.
 - [main.py](main.py) : integrate all function and add user interface.
 - [test.py](test.py) : integrate all function for testing each function.
-- [preprocessing.py](preprocessing0.py) : load data and deal with missing data.
+- [preprocessing.py](preprocessing.py) : load data and deal with missing data.
 - [faphy.py](faphy.py) : Fuzzy_AHP using pairwise_matrix to get the attribute's weights.
 - [ann.py](ann.py) : train ANN to trained ANN for prediction.
 - [eval.py](eval.py) : evaluate the model, using sensitivity/specificity, evaluation metrics, ROC and performance plot.
 
 data/ :
-  - processed_data.csv : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/heart+Disease).
-  - weights : attribute's weights computed from Fuzzy_AHP.
-  - ANNmodel.h5 : the ANN model information (including frame and weights).
-
-image/ : store all images using in README.md
+  - [processed_data.csv](data/processed_data.csv) : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/heart+Disease).
+  - [weights](data/weights) : attribute's weights computed from Fuzzy_AHP.
+  
+results/ : store all images using in README.md
 <br><br> 
 
 
@@ -29,65 +28,64 @@ image/ : store all images using in README.md
 
 
 ## Result
+(BEST ONE: without missing data treatment, min_max scale X, with attribute weights)
 
-- Programming Output<br>
-  <img src="image/output.png" width="75%">
+- [Programming Output](results/x-min_max-1/out.txt)
 <br><br>
 - Plot Curve<br>
-  <img src="image/loss.png" width="45%">
-  <img src="image/acc.png" width="45%">
-
-
+  <img src="results/x-min_max-1/loss.png" width="45%">
+  <img src="results/x-min_max-1/acc.png" width="45%">
+  
+  
 ## Evaluation
 
-(left: hybrid method, right: conventional ANN method) 
+(left: hybrid method, right: conventional ANN method)
 
 - evaluation metrics<br>
-  <img src="image/confusion_matrix.png" width="45%">
-  <img src="image/ann/confusion_matrix.png" width="45%">
+  <img src="results/x-min_max-1/confusion_matrix.png" width="45%">
+  <img src="results/x-min_max-0/confusion_matrix.png" width="45%">
 
 - ROC<br>
-  <img src="image/roc_curve.png" width="45%">
-  <img src="image/ann/roc_curve.png" width="45%">
+  <img src="results/x-min_max-1/roc_curve.png" width="45%">
+  <img src="results/x-min_max-0/roc_curve.png" width="45%">
 
 - performance plot<br>
-  <img src="image/loss.png" width="45%">
-  <img src="image/ann/loss.png" width="45%"><br>
-    
-    |            | hybrid method  | conventional ANN method  |
+  <img src="results/x-min_max-1/loss.png" width="45%">
+  <img src="results/x-min_max-0/loss.png" width="45%"><br>
+
+    |            | [hybrid method](results/x-min_max-1/out.txt)  | [conventional ANN method](results/x-min_max-0/out.txt)  |
     |:----------:|---------------:|-------------------------:|
-    | Train Accuracy |   83.67%      |  87.25%                    |
-    | Test Accuracy  |   91.11%      |  84.44%                    |
-    |Sensitivity |  93.33%       |  86.67%                     |
-    |Specificity |  86.67%     |  80.00%                     |
-    | FP rate   |  13.33%        |  20.00%                     |
-    | FN rate   |  6.67%        |  13.33%                      |
-    | Recall    |  93.33%         |  86.67%                    |
-    | Precision |  93.33%       |  89.66%                    |
-    | F1        |  93.33%       |  88.14%                    |
-
-
+    | Train Accuracy |   84.13%      |  85.32%                    |
+    | Test Accuracy  |   95.56%      |  91.11%                    |
+    |Sensitivity |  100.00%       |  91.30%                     |
+    |Specificity |  90.91%     |  90.91%                     |
+    | FP rate   |  9.09%        |  9.09%                     |
+    | FN rate   |  0.00%        |   8.70%                      |
+    | Recall    |  100.00%         |  91.30%                    |
+    | Precision |  92.00%       |  91.30%                    |
+    | F1        |  95.83%       |  91.30%                    |
+    
+    
 ## Comparison
 
-seed = 2, batch_size = 50, iteration=2000,<br>
+seed = 1, batch_size = 50, iteration=2000,<br> 
 
 | X(attribute) scale   |  missing data  | attribute weight  |  fix attribute w    |  ANN      |  test acc(train acc)  |
 |:--------------------:|:--------------:|:-----------------:|:-------------------:|-----------|----------------------:|
-| min-max              |  replace_mean  |  √               |  √                   | 13-10-2   |   89.13% (84.82%)     |
-| normalization        |  replace_mean  |  √               |  √                   | 13-10-2   |   89.13% (84.05%)     |
-| min-max              |  replace_med   |  √               |  √                   | 13-10-2   |   89.13% (84.82%)     |
-| normalization        |  replace_med   |  √               |  √                   | 13-10-2   |   89.13% (84.44%)     |
-| min-max              |  MICE          |  √               |  √                   | 13-10-2   |   89.13% (84.82%)     |
-| normalization        |  MICE          |  √               |  √                   | 13-10-2   |   89.13% (84.44%)     |
-| min-max              |  knn-1         |  √               |  √                   | 13-10-2   |   89.13% (84.82%)     |
-| normalization        |  knn-1         |  √               |  √                   | 13-10-2   |   89.13% (84.05%)     |
-| min-max              |  knn-3         |  √               |  √                   | 13-10-2   |   89.13% (84.82%)     |
-| normalization        |  knn-3         |  √               |  √                   | 13-10-2   |   89.13% (84.05%)     |
-| min-max              |  x             |  √               |  √                   | 13-10-2   |   **91.11%** (83.67%) |
-| normalization        |  x             |  √               |  √                   | 13-10-2   |   88.89% (86.45%)     |
-| x                    |  x             |  √               |  √                   | 13-10-2   |   88.89% (87.25%)     |
-| min-max              |  x             |  x               |  √                   | 13-10-2   |   **84.44%** (87.25%) |
-| min-max              |  x             |  √               |  √                   | 13-10-1   |   % (%)     |
+|min_max|replace_mean|√| √ | 13-10-2|80.43(86.38)|
+|normalise|replace_mean|√| √ | 13-10-2|82.61(86.38)|
+|min_max|replace_med|√| √ | 13-10-2|78.26(85.21)|
+|normalise|replace_med|√| √ | 13-10-2|80.43(85.6)|
+|MICE|replace_med|√| √ | 13-10-2|82.61(86.38)|
+|MICE|replace_med|√| √ | 13-10-2|82.61(86.38)|
+|min_max|knn_1|√| √ | 13-10-2|78.26(85.6)|
+|normalise|knn_1|√| √ | 13-10-2|80.43(86.38)|
+|min_max|knn_3|√| √ | 13-10-2|78.26(85.99)|
+|normalise|knn_3|√| √ | 13-10-2|78.26(85.99)|
+|min_max|x|√| √ | 13-10-2|**95.56**(83.73)|
+|normalise|x|√| √ | 13-10-2|93.33(84.13)|
+|min_max|x|x| √ | 13-10-2|**91.11**(85.32)|
+|min_max|x|√| √ | 13-10-1|93.33(83.73)|
 
 
 ## TO-DO List

@@ -1,11 +1,3 @@
-'''
-rel: https://machinelearningmastery.com/metrics-evaluate-machine-learning-algorithms-python/
-
-sensitivity/specificity
-evaluation metrics
-ROC
-performance plot
-'''
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
@@ -94,7 +86,7 @@ def plot_roc(y, prediction):
     # Plot of a ROC curve for a specific class
     for i in range(n_classes):
         #plt.figure()
-        plt.plot(fpr[i], tpr[i], label='ROC curve (area = %0.2f)' % roc_auc[i])
+        plt.plot(fpr[i], tpr[i], label='%s' % class_names[i])
         plt.plot([0, 1], [0, 1], 'k--')
         plt.xlim([0.0, 1.0])
         plt.ylim([0.0, 1.05])

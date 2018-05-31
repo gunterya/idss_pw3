@@ -2,37 +2,47 @@
 Integration
 '''
 import os
-import time
 import numpy as np
 from sklearn.model_selection import train_test_split
 import keras.backend as K
 from keras.models import load_model
-from faphy import get_weights
 from preprocessing import preprocessing
+from faphy import get_weights
 from ann import ANN
 from eval import eval
-
-seed = 2
+seed = 1
 np.random.seed(seed)
 
 # parameters
+isWEIGHT = 1
 WEIGHT_AGAIN = False
 TRAIN_AGAIN = True
-DATA_PATH = 'data/heart-c.arff'
-PAIRWISE_PATH = '' # TODO: do it need to change to file and then input?!
+DATA_PATH = 'data/processed_data.csv'
+IMP_M = 'x'
+SCALE_M = 'min_max'
+# PAIRWISE_PATH = ''
 W_PATH = 'data/weights'
-MODEL_PATH = 'data/ANNmodel.h5'
-OUTPUT_PATH = 'image/'
+OUTPUT_PATH = 'results/'+ IMP_M + '-' + SCALE_M + '-' + str(isWEIGHT) +'/'
+MODEL_PATH = OUTPUT_PATH + 'ANNmodel.h5'
 
 pred_data = '' # new data for prediction
-# TODO: ADD time consume analysis of each block
 
 
 if __name__ == '__main__':
+    if not os.path.exists(OUTPUT_PATH):
+        os.makedirs(OUTPUT_PATH)
+
+    # write print content to file
+    import sys
+    orig_stdout = sys.stdout
+    f = open(OUTPUT_PATH + 'out.txt', 'w')
+    sys.stdout = f
+
+
     #############################
     #  Load data                #
     #############################
-    X, y = preprocessing(DATA_PATH, '', 'min_max')
+    X, y = preprocessing(DATA_PATH, IMP_M, SCALE_M)
     print('X shape:', X.shape)
     print('Y shape:', y.shape)
 
@@ -46,19 +56,20 @@ if __name__ == '__main__':
     #############################
     #  Load weights (faphy)     #
     #############################
-    if os.path.isfile(W_PATH) & (not WEIGHT_AGAIN):
-        print('\nLoading weights...')
-        w = np.fromfile('data/weights', dtype=np.float128, sep=' ')
-        w = np.reshape(w, len(w))
-    else:
-        print('\nComputing weights...')
-        w = get_weights()
-    print(w)
-    # paper_w = np.array([[0.0822, 0.0287, 0.1333, 0.0645, 0.0559, 0.0531, 0.0452, 0.1235, 0.0696, 0.0997, 0.0386, 0.0849, 0.1708]])
+    if isWEIGHT:
+        if os.path.isfile(W_PATH) & (not WEIGHT_AGAIN):
+            print('\nLoading weights...')
+            w = np.fromfile('data/weights', dtype=np.float128, sep=' ')
+            w = np.reshape(w, len(w))
+        else:
+            print('\nComputing weights...')
+            w = get_weights()
+        print(w)
+        # paper_w = np.array([[0.0822, 0.0287, 0.1333, 0.0645, 0.0559, 0.0531, 0.0452, 0.1235, 0.0696, 0.0997, 0.0386, 0.0849, 0.1708]])
 
-    # X * attribute_weight
-    X_train = np.multiply(X_train, w)
-    X_test = np.multiply(X_test, w)
+        # X * attribute_weight
+        X_train = np.multiply(X_train, w)
+        X_test = np.multiply(X_test, w)
 
 
     #############################
@@ -91,5 +102,8 @@ if __name__ == '__main__':
     # X = ''
     # predictions = model.predict(X)
 
+
+    sys.stdout = orig_stdout
+    f.close()
 
     K.clear_session()  # delete session from keras backend

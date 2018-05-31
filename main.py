@@ -5,7 +5,7 @@ from tkinter import *
 import numpy as np
 from ann import ANN
 
-seed = 2018
+seed = 1
 np.random.seed(seed)
 
 
