@@ -178,13 +178,15 @@ class App():
         data.append(["Thalanium scan", s[12], desc])
             
         # 13 Diagnosis of heart disease
-        if s[13]==0:
-            desc="<50% narrowing"
-        elif s[13]==1:
-            desc=">50% narrowing"
-        else: 
-            desc=""
-        data.append(["Diagnosis of heart disease", s[12], desc])
+        #if s[13]==0:
+        #    desc="<50% narrowing"
+        #elif s[13]==1:
+        #    desc=">50% narrowing"
+        #else: 
+        #    desc=""
+        #data.append(["Diagnosis of heart disease", s[12], desc])
+        
+        # 13 PREDICTION 
         
         
         self.data=data
@@ -202,6 +204,17 @@ class App():
             Label(self.frame, text=self.data[r][1]).grid(sticky = W, row=r+2,column=1)
             Label(self.frame, text=self.data[r][2]).grid(sticky = W, row=r+2,column=2)
         
+    
+    
+    """----------------------------------------------------------------------------
+    CREATE NEW PATIENT
+    """
+    def newPatient():
+        #Add new patient's data
+        #Calculate prediction
+        #Add patient to frame
+        pass
+    
     
     """----------------------------------------------------------------------------
     SET WINDOW WITH PANELS
