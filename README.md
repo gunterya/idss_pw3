@@ -17,10 +17,9 @@ Reference: O.W. Samuel, G.M. Asogbon, A.K. Sangaiah, P. Fang, G. Li (2017) - An 
 - [eval.py](eval.py) : evaluate the model, using sensitivity/specificity, evaluation metrics, ROC and performance plot.
 
 data/ :
-  - processed_data.csv : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/heart+Disease).
-  - weights : attribute's weights computed from Fuzzy_AHP.
-  - ANNmodel.h5 : the ANN model information (including frame and weights).
-
+  - [processed_data.csv](data/processed_data.csv) : [original dataset from UCI data repository](http://archive.ics.uci.edu/ml/datasets/heart+Disease).
+  - [weights](data/weights) : attribute's weights computed from Fuzzy_AHP.
+  
 results/ : store all images using in README.md
 <br><br> 
 
@@ -73,19 +72,20 @@ seed = 1, batch_size = 50, iteration=2000,<br>
 
 | X(attribute) scale   |  missing data  | attribute weight  |  fix attribute w    |  ANN      |  test acc(train acc)  |
 |:--------------------:|:--------------:|:-----------------:|:-------------------:|-----------|----------------------:|
-|min_max|replace_mean|1| √ | 13-10-2|80.43(86.38)|
-|normalise|replace_mean|1| √ | 13-10-2|82.61(86.38)|
-|min_max|replace_med|1| √ | 13-10-2|78.26(85.21)|
-|normalise|replace_med|1| √ | 13-10-2|80.43(85.6)|
-|MICE|replace_med|1| √ | 13-10-2|82.61(86.38)|
-|MICE|replace_med|1| √ | 13-10-2|82.61(86.38)|
-|min_max|knn_1|1| √ | 13-10-2|78.26(85.6)|
-|normalise|knn_1|1| √ | 13-10-2|80.43(86.38)|
-|min_max|knn_3|1| √ | 13-10-2|78.26(85.99)|
-|normalise|knn_3|1| √ | 13-10-2|78.26(85.99)|
-|min_max|x|1| √ | 13-10-2|**95.56**(83.73)|
-|normalise|x|1| √ | 13-10-2|93.33(84.13)|
-|min_max|x|0| √ | 13-10-2|**91.11**(85.71)|
+|min_max|replace_mean|√| √ | 13-10-2|80.43(86.38)|
+|normalise|replace_mean|√| √ | 13-10-2|82.61(86.38)|
+|min_max|replace_med|√| √ | 13-10-2|78.26(85.21)|
+|normalise|replace_med|√| √ | 13-10-2|80.43(85.6)|
+|MICE|replace_med|√| √ | 13-10-2|82.61(86.38)|
+|MICE|replace_med|√| √ | 13-10-2|82.61(86.38)|
+|min_max|knn_1|√| √ | 13-10-2|78.26(85.6)|
+|normalise|knn_1|√| √ | 13-10-2|80.43(86.38)|
+|min_max|knn_3|√| √ | 13-10-2|78.26(85.99)|
+|normalise|knn_3|√| √ | 13-10-2|78.26(85.99)|
+|min_max|x|√| √ | 13-10-2|**95.56**(83.73)|
+|normalise|x|√| √ | 13-10-2|93.33(84.13)|
+|min_max|x|x| √ | 13-10-2|**91.11**(85.32)|
+|min_max|x|√| √ | 13-10-1|**93.33**(83.73)|
 
 
 ## TO-DO List
