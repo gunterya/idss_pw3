@@ -99,8 +99,8 @@ if __name__ == '__main__':
     #############################
     #  Prediction (new input)   #
     #############################
-    # X = ''
-    # predictions = model.predict(X)
+    def predictHF(data):
+        return model.predict(data)
 
 
     sys.stdout = orig_stdout
