@@ -19,7 +19,7 @@ SCALE_M = 'min_max' # scale x(attributes)
 isW = 1
 W_TRAINABLE = 0
 ANN_PATH = OUTPUT_DIR + 'ANNmodel'+'-IMP'+IMP_M+'-SCALE'+SCALE_M+'-isW'+str(isW)+'-wTrain'+str(W_TRAINABLE)+'.h5'
-ANN_AGAIN = False
+ANN_AGAIN = 0
 isEval = 0
 COLS_PATH = DATA_DIR + 'missing_cols' # missing cols
 
@@ -37,11 +37,11 @@ def train():
 
     # model
     if (not os.path.isfile(ANN_PATH)) | ANN_AGAIN :
-        print('\nTraining ANN(13-13-10-2)...')
+        print('\nTraining ANN...')
         from model import ANN
         model = ANN(X_train, y_train, isW, W_TRAINABLE, ANN_PATH, isPlot=OUTPUT_DIR)
     else:
-        print('\nLoading ANN(13-13-10-2)...')
+        print('\nLoading ANN...')
         model = load_model(ANN_PATH)
 
     # evaluate model

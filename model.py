@@ -26,13 +26,11 @@ def ANN(X_train, y_train, isW, w_trainable, model_path, isPlot=0, isShow=0):
         W = np.zeros([13, 13])
         for i in range(13): W[i, i] = w[i]
         # print(W)
-    else:
-        W = np.ones([13, 13])
-    b = np.zeros([13])
+        b = np.zeros([13])
 
     # create model
     model = Sequential()
-    model.add(Dense(13, input_dim=13, weights=[W, b], trainable=w_trainable)) # layer1 : 13-13 (attribute weight)
+    if isW: model.add(Dense(13, input_dim=13, weights=[W, b], trainable=w_trainable)) # layer1 : 13-13 (attribute weight)
     model.add(Dense(10, input_dim=13, activation='sigmoid'))
     model.add(Dense(2, activation='softmax'))
 
