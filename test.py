@@ -57,12 +57,11 @@ def train():
         eval(model, X_test, y_test, OUTPUT_DIR)
 
 def predict_HFp(X, needScale=True):
-    if needScale:
-        X = col_scaling(X)
-
     # load model
     if (not os.path.isfile(ANN_PATH)) | ANN_AGAIN : train()
     model = load_model(ANN_PATH)
+
+    if needScale: X = col_scaling(X)
 
     # prediction
     np.set_printoptions(precision=2)
@@ -93,9 +92,9 @@ if __name__ == '__main__':
     print('Saving on... ' + os.getcwd() + '/'+ OUTPUT_DIR)
 
 
-    # predict original data
-    X, y = load_data(DATA_PATH, IMP_M, SCALE_M)
-    print(predict_HFp(X, needScale=False))
+    # # predict original data
+    # X, y = load_data(DATA_PATH, IMP_M, SCALE_M)
+    # print(predict_HFp(X, needScale=False))
 
     # predict new data
     new_x = np.array([[67.0,1.0,4.0,160.0,286.0,0.0,2.0,108.0,1.0,1.5,2.0,3.0,3.0]], dtype=float)
