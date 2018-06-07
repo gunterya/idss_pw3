@@ -100,7 +100,7 @@ if __name__ == '__main__':
     #  Prediction (new input)   #
     #############################
     def predictHF(data):
-        return model.predict(data)
+        model.predict(data)
 
 
     sys.stdout = orig_stdout

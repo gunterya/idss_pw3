@@ -4,8 +4,6 @@ from tkinter import *
 import pandas as pd
 import numpy as np
 
-
-
 class App():
 
     
@@ -31,6 +29,7 @@ class App():
                               'Diagnosis of heart disease'
                               ]
         self.data = []
+        self.index = 0
         
         self.window=Tk()
         self.window.geometry("800x500")
@@ -43,8 +42,8 @@ class App():
         #LEFT PANEL
         self.leftPane=PanedWindow(self.mainPane, orient=VERTICAL)
         self.patientList=Listbox(self.leftPane)
-        self.addButton=Button(self.leftPane, text="New patient", command=self.newPatient)
-        self.editButton=Button(self.leftPane, text="Edit", command=self.newPatient)
+        self.addButton=Button(self.leftPane, text="Add patient", command=self.newPatient)
+        self.editButton=Button(self.leftPane, text="Edit", command=self.editPatient)
         
         #RIGHT PANEL
         self.rightPane=PanedWindow(self.mainPane, orient=VERTICAL)
@@ -55,7 +54,8 @@ class App():
     LOAD DATA FROM PATIENT (TRIGGERED BY LISTBOX ELEMENT CLICK)
     """
     def loadData(self,event):
-        s = (self.df.iloc[[event.widget.curselection()[0]]]).values[0]
+        self.index = event.widget.curselection()[0]
+        s = (self.df.iloc[[self.index]]).values[0]
         data=[]
         
         # 0 Age
@@ -205,8 +205,17 @@ class App():
             desc=""
         data.append([self.characteristics[12], s[12], desc])
         
-        # 13 PREDICTION 
+         # 13 Diagnosis of heart disease
+        if s[13]==0:
+            desc="<50% diameter narrowing"
+        elif s[13]==1:
+            desc=">50% diameter narrowing"
+        else:
+            desc=""
+        data.append([self.characteristics[13], s[13], desc])
         
+        # 14 PREDICTION 
+        # prediction=predictHF(data)
         
         self.data=data
         
@@ -229,9 +238,6 @@ class App():
     CREATE NEW PATIENT
     """
     def newPatient(self):
-        #Add new patient's data
-        #Calculate prediction
-        #Add patient to frame
         
         form=Tk()
         form.geometry("520x450")
@@ -245,16 +251,46 @@ class App():
                     data.append(int(l.get()))
             
             self.df.loc[-1] = data
-            #print(self.df)
-            self.patientList.insert(END,"NEW PATIENT")
+            self.patientList.insert(END,"New patient "+str(self.patientList.index(END)))
             
-            form.destroy #Close form
+            form.destroy() #Close form window
         
         for i in range (len(self.characteristics)):
             Label(form, text=self.characteristics[i]).grid(sticky=W, row=i, column=0)
             Entry(form).grid(row=i, column=1)
         
         Button(form, text="Add", command=addPatient).grid(column=1)
+        Button(form, text="Cancel", command=form.destroy).grid(column=0)
+                
+        form.mainloop()
+        
+    """----------------------------------------------------------------------------
+    CREATE NEW PATIENT
+    """
+    def editPatient(self):
+        
+        form=Tk()
+        form.geometry("520x450")
+        form.title("Edit patient data")
+        
+        def modifyData():
+            data=[]
+            list = form.winfo_children()
+            for l in list:
+                if type(l) is Entry:
+                    data.append(int(l.get()))
+            
+            self.df.iloc[self.index] = data
+            self.patientList.activate(self.index)
+        
+            form.destroy() #Close form window
+        
+        for i in range (len(self.characteristics)):
+            Label(form, text=self.characteristics[i]).grid(sticky=W, row=i, column=0)
+            v = StringVar(form, value= self.data[i][1])
+            Entry(form, textvariable=v).grid(row=i, column=1)
+        i
+        Button(form, text="Modify", command=modifyData).grid(column=1)
         Button(form, text="Cancel", command=form.destroy).grid(column=0)
                 
         form.mainloop()
