@@ -1,8 +1,11 @@
-from tkinter import *
+import os
+import decimal as dc
 import pandas as pd
 import numpy as np
+from tkinter import *
+import test
 
-
+os.chdir('/Users/isabellepolizzi/Desktop/UPC/IDSS/PW3/idss_pw3/')
 
 class App():
 
@@ -12,7 +15,7 @@ class App():
     """
     
     def __init__(self):
-        self.df = (pd.read_csv('/Users/isabellepolizzi/Desktop/UPC/IDSS/PW3/idss_pw3/data/processed_data.csv').replace('?',0))
+        self.df = (pd.read_csv('./data/processed_cleveland_data.csv').replace('?',0))
         self.characteristics=['Age',
                               'Gender',
                               'Chest pain',
@@ -29,6 +32,7 @@ class App():
                               'Diagnosis of heart disease'
                               ]
         self.data = []
+        self.index = 0
         
         self.window=Tk()
         self.window.geometry("800x500")
@@ -41,19 +45,21 @@ class App():
         #LEFT PANEL
         self.leftPane=PanedWindow(self.mainPane, orient=VERTICAL)
         self.patientList=Listbox(self.leftPane)
-        self.addButton=Button(self.leftPane, text="New patient", command=self.newPatient)
-        self.editButton=Button(self.leftPane, text="Edit", command=self.newPatient)
+        self.addButton=Button(self.leftPane, text="Add patient", command=self.newPatient)
+        self.editButton=Button(self.leftPane, text="Edit", command=self.editPatient)
         
         #RIGHT PANEL
         self.rightPane=PanedWindow(self.mainPane, orient=VERTICAL)
         self.frame=Frame(self.rightPane, relief=GROOVE)
+        Label(self.frame, text="Select patient to see diagnosis", font=("Helvetica", 24)).grid(sticky = W, row=0,column=0)
         
     
     """----------------------------------------------------------------------------
     LOAD DATA FROM PATIENT (TRIGGERED BY LISTBOX ELEMENT CLICK)
     """
     def loadData(self,event):
-        s = (self.df.iloc[[event.widget.curselection()[0]]]).values[0]
+        self.index = event.widget.curselection()[0]
+        s = (self.df.iloc[[self.index]]).values[0]
         data=[]
         
         # 0 Age
@@ -180,56 +186,70 @@ class App():
         data.append([self.characteristics[10], s[10], desc])
             
         # 11 Number of major vessels colored by fluoroscopy
-        if s[11]==0:
+        if float(s[11])==0:
             desc="Fluoroscopy-0"
-        elif s[11]==1:
+        elif float(s[11])==1:
             desc="Fluoroscopy-1"
-        elif s[11]==2:
+        elif float(s[11])==2:
             desc="Fluoroscopy-2"
-        elif s[11]==3:
+        elif float(s[11])==3:
             desc="Fluoroscopy-3"
         else:
             desc=""
         data.append([self.characteristics[11], s[11], desc])
             
         # 12 Thalanium scan
-        if s[12]==3:
+        if float(s[12])==3:
             desc="Normal"
-        elif s[12]==6:
+        elif float(s[12])==6:
             desc="Fixed defect"
-        elif s[12]==7:
+        elif float(s[12])==7:
             desc="Reversible defect"
         else:
             desc=""
         data.append([self.characteristics[12], s[12], desc])
         
-        # 13 PREDICTION 
+         # 13 Diagnosis of heart disease
+        if s[13]==0:
+            desc="<50% diameter narrowing"
+        elif s[13]==1:
+            desc=">50% diameter narrowing"
+        else:
+            desc=""
+        data.append([self.characteristics[13], s[13], desc])
         
+        # 14 PREDICTION 
+        l=[]
+        for d in data[0:13]:
+            l.append(d[1])
+            
+        prediction = predict_HFp(np.array([l], dtype=float))
+        roundPrediction = round(dc.Decimal(str(prediction[0])),2) # Round prediction with 2 decimals
         
+        # Display on screen
         self.data=data
         
         list = self.frame.grid_slaves()
         for l in list:
             l.destroy()
         
-        Label(self.frame, text="Characteristic", font=("Helvetica", 18)).grid(sticky = W, row=1,column=0)
+        Label(self.frame, text="Characteristic patient "+str(self.index), font=("Helvetica", 18)).grid(sticky = W, row=1,column=0)
         Label(self.frame, text="Value", font=("Helvetica", 18)).grid(sticky = W, row=1,column=1)
         Label(self.frame, text="Description", font=("Helvetica", 18)).grid(sticky = W, row=1,column=2)
         
-        for r in range(len(self.data)):
+        for r in range(len(self.data)-1):
             Label(self.frame, text=self.data[r][0]).grid(sticky = W, row=r+2,column=0)
             Label(self.frame, text=self.data[r][1]).grid(sticky = W, row=r+2,column=1)
             Label(self.frame, text=self.data[r][2]).grid(sticky = W, row=r+2,column=2)
         
+        Label(self.frame, text='HF Risk prediction', font=(None, 15, "bold")).grid(sticky = W, row=len(data)+2,column=0)
+        Label(self.frame, text=str(roundPrediction)+"%", font=(None, 15, "bold")).grid(sticky = W, row=len(data)+2,column=1)
     
     
     """----------------------------------------------------------------------------
     CREATE NEW PATIENT
     """
     def newPatient(self):
-        #Add new patient's data
-        #Calculate prediction
-        #Add patient to frame
         
         form=Tk()
         form.geometry("520x450")
@@ -240,20 +260,55 @@ class App():
             list = form.winfo_children()
             for l in list:
                 if type(l) is Entry:
-                    data.append(int(l.get()))
+                    data.append(float(l.get()))
+            data.append(0)
             
             self.df.loc[-1] = data
-            #print(self.df)
-            self.patientList.insert(END,"NEW PATIENT")
+            self.patientList.insert(END,"New patient "+str(self.patientList.index(END)))
             
-            form.destroy #Close form
+            form.destroy() #Close form window
         
-        for i in range (len(self.characteristics)):
+        for i in range (len(self.characteristics)-1):
             Label(form, text=self.characteristics[i]).grid(sticky=W, row=i, column=0)
             Entry(form).grid(row=i, column=1)
         
-        Button(form, text="Add", command=addPatient).grid(column=1)
-        Button(form, text="Cancel", command=form.destroy).grid(column=0)
+        Button(form, text="Add", height = 2, width = 20, command=addPatient).grid(column=1)
+        Button(form, text="Cancel", height = 2, width = 10, command=form.destroy).grid(column=0)
+                
+        form.mainloop()
+        
+    """----------------------------------------------------------------------------
+    EDIT PATIENT DATA
+    """
+    def editPatient(self):
+        
+        form=Tk()
+        form.geometry("520x450")
+        form.title("Edit patient data")
+        
+        def modifyData():
+            data=[]
+            list = form.winfo_children()
+            for l in list:
+                if type(l) is Entry:
+                    data.append(float(l.get()))
+            data.append(0)
+            test=map(int,data)
+            print(test)
+            print
+            
+            self.df.iloc[self.index] = data
+            self.patientList.activate(self.index)
+        
+            form.destroy() #Close form window
+        
+        for i in range (len(self.characteristics)-1):
+            Label(form, text=self.characteristics[i]).grid(sticky=W, row=i, column=0)
+            v = StringVar(form, value= self.data[i][1])
+            Entry(form, textvariable=v).grid(row=i, column=1)
+
+        Button(form, text="Modify",height = 2, width = 20, command=modifyData).grid(column=1)
+        Button(form, text="Cancel", height = 2, width = 10, command=form.destroy).grid(column=0)
                 
         form.mainloop()
     
@@ -273,9 +328,6 @@ class App():
         self.rightPane.add(self.frame)
         self.mainPane.add(self.leftPane)
         self.mainPane.add(self.rightPane)
-        
-        Label(self.rightPane, text="Data Description", font=("Helvetica", 24)).grid(sticky = W, row=0,column=0)
-        
         
         self.window.mainloop()
     

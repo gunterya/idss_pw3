@@ -7,10 +7,12 @@ from sklearn.model_selection import train_test_split
 import keras.backend as K
 from keras.models import load_model
 from preprocessing import load_data
+
 seed = 1
 np.random.seed(seed)
 
 # parameters
+os.chdir('/Users/isabellepolizzi/Desktop/UPC/IDSS/PW3/idss_pw3/')
 OUTPUT_DIR = 'results/'
 DATA_DIR = 'data/'
 DATA_PATH = DATA_DIR + 'processed_data.csv'
@@ -97,9 +99,9 @@ if __name__ == '__main__':
     # print(predict_HFp(X, needScale=False))
 
     # predict new data
-    new_x = np.array([[67.0,1.0,4.0,160.0,286.0,0.0,2.0,108.0,1.0,1.5,2.0,3.0,3.0]], dtype=float)
-    print('\nnew patient:', new_x)
-    print(predict_HFp(new_x))
+    #new_x = np.array([[67.0,1.0,4.0,160.0,286.0,0.0,2.0,108.0,1.0,1.5,2.0,3.0,3.0]], dtype=float)
+    #print('\nnew patient:', new_x)
+    #print(predict_HFp(new_x))
 
 
     K.clear_session()  # delete session from keras backend
