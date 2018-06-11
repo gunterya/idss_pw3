@@ -20,7 +20,7 @@ class App():
                               'Gender',
                               'Chest pain',
                               'Resting blood pressure', 
-                              'Serum cholestoral',
+                              'Serum cholesterol',
                               'Fasting blood sugar',
                               'Resting electrocardiographic results',
                               'Maximum heart rate achieved',
@@ -293,9 +293,6 @@ class App():
                 if type(l) is Entry:
                     data.append(float(l.get()))
             data.append(0)
-            test=map(int,data)
-            print(test)
-            print
             
             self.df.iloc[self.index] = data
             self.patientList.activate(self.index)
